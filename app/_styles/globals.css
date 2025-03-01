@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  :root {
+    --color-hover-primary: theme(colors.amber.400);
+    --color-hover-secondary: theme(colors.cyan.600);
+    --color-text-dark: #ffff;
+    --color-bg-light: theme(colors.stone.100);
+    --color-bg-dark: #002137;
+    --color-bg-container-light: theme(colors.stone.200);
+    --color-bg-container-dark: #314459;
+    --color-text-table-head-light: theme(colors.gray.700);
+    --color-text-table-head-dark: theme(colors.gray.300);
+    --color-bg-table-inside-light: #ffff;
+    --color-bg-table-inside-dark: #12354d;
+  }
+
+  body {
+    transition: color 0.3s, background-color 0.3s;
+  }
+
+  .active {
+    background-color: var(--color-hover-primary);
+  }
+  .dark .active {
+    background-color: var(--color-hover-secondary);
+  }
+
+  .active:hover,
+  .dark .active:hover {
+    color: inherit !important;
+  }
+
+  .primaryTransition {
+    transition: all 200ms ease-in-out;
+  }
+
+  .scrollbar::-webkit-scrollbar,
+  .dark .scrollbar::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track,
+  .dark .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+  }
+  .scrollbar::-webkit-scrollbar-track {
+    background: var(--color-bg-container-light);
+  }
+  .dark .scrollbar::-webkit-scrollbar-track {
+    background: var(--color-bg-container-dark);
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb,
+  .dark .scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 100vh;
+    border: 3px solid;
+  }
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: theme(colors.stone.500);
+    border-color: var(--color-bg-container-light);
+  }
+  .dark .scrollbar::-webkit-scrollbar-thumb {
+    background: black;
+    border-color: var(--color-bg-container-dark);
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-hover-primary);
+  }
+  .dark .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--color-hover-secondary);
+  }
+
+  .spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid;
+    border-bottom-color: #ff3d00;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotate 1s linear infinite;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
