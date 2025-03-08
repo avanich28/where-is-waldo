@@ -1,12 +1,17 @@
+import { calcMinsAndSecs, formatDate } from "@/app/_utils/helpers";
+
 function BoardItem({ place, player }) {
-  const { name, time, date } = player;
+  const { name, timeCount, date } = player;
+  const { minutes, seconds } = calcMinsAndSecs(timeCount);
 
   return (
     <>
       <td>{place}</td>
       <td className="capitalize">{name}</td>
-      <td>{time}</td>
-      <td>{date}</td>
+      <td>
+        {minutes}:{seconds}
+      </td>
+      <td>{formatDate(date)}</td>
     </>
   );
 }

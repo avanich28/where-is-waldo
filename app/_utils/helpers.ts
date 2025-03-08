@@ -11,3 +11,14 @@ export function calcMinsAndSecs(timeCount) {
 
   return { minutes: timeString(minutes), seconds: timeString(seconds) };
 }
+
+export function formatDate(date) {
+  const options = {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  };
+  const format = new Intl.DateTimeFormat("en-US", options).format(date);
+
+  return format;
+}

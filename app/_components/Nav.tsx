@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { JSX } from "react";
-import { PiUserFill, PiTrophyFill } from "react-icons/pi";
+import Link from "next/link";
+import { PiTrophyFill, PiUserFill } from "react-icons/pi";
 import { TbMoonFilled, TbSunFilled } from "react-icons/tb";
-import { useTheme } from "../_contexts/ThemeContext";
+import { useTheme } from "@/app/_contexts/ThemeContext";
 
 const linkDefaultStyle =
   "text-xl sm:text-2xl lg:text-3xl [&>*]:primaryTransition hover:[&>*]:text-hover-secondary hover:[&>*]:dark:text-hover-primary";

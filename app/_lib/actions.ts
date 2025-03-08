@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-// redirect
+// FIXME connect to backend
 export async function signUpAction(formData) {
   console.log(formData.get("name"));
   console.log(formData.get("password"));
@@ -32,7 +32,12 @@ export async function updatePassword(formData) {
 }
 
 export async function createRecord(data) {
-  console.log(data);
+  const { gameId, timeCount } = data;
+  const date = new Date();
 
-  // revalidatePath("/boards");
+  // FIXME Get name from auth + connect to database
+  const name = "Torque";
+  console.log({ gameId, name, timeCount, date });
+
+  revalidatePath("/boards");
 }

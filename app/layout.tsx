@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
 import "@/app/_styles/globals.css";
+import type { Metadata } from "next";
 import { ThemeProvider } from "@/app/_contexts/ThemeContext";
-import { GameProvider } from "./_contexts/GameContext";
+import { GameProvider } from "@/app/_contexts/GameContext";
 import Footer from "@/app/_components/Footer";
 import Header from "@/app/_components/Header";
 

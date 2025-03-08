@@ -19,3 +19,5 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: "/boards",
 };
+
+// FIXME /user, /user/records, /user/settings, /games, games/[gameId] + auth + middleware

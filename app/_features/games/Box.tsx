@@ -11,13 +11,13 @@ const defaultStyles = {
   rightBottom: "hover:bg-red-700",
 };
 
-const positionArr = Object.keys(defaultStyles);
+const boxPositionArr = Object.keys(defaultStyles);
 
 function Box({ id, data }) {
   const { setIsPlay } = useGame();
   const router = useRouter();
   const { name, href, image } = data;
-  const position = positionArr[id];
+  const position = boxPositionArr[id];
 
   function handleGameStart() {
     setIsPlay(true);

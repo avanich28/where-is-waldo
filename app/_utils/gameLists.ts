@@ -33,9 +33,21 @@ export const gameLists = [
     source:
       "https://www.mackaydesign.net/art-direction/project-two-ky966-y54l8?itemId=n1tv5an85doc0pwusor498cs40ygry",
     characters: [
-      { name: "Cat", img: char00 },
-      { name: "Boy", img: char01 },
-      { name: "Police", img: char02 },
+      {
+        name: "Cat",
+        img: char00,
+        coordinates: { xLeft: 788, xRight: 894, yTop: 2085, yBottom: 2205 },
+      },
+      {
+        name: "Boy",
+        img: char01,
+        coordinates: { xLeft: 128, xRight: 214, yTop: 1031, yBottom: 1208 },
+      },
+      {
+        name: "Police",
+        img: char02,
+        coordinates: { xLeft: 1502, xRight: 1571, yTop: 1382, yBottom: 1588 },
+      },
     ],
   },
   {
@@ -46,9 +58,21 @@ export const gameLists = [
     source:
       "https://www.facebook.com/pocketleslie/posts/pfbid02ovb2hG1FQQXmX9Sqw6A4LNMfjpZu6Ufuub44nGCGCiTuix6bL8fymeCHpS8wP8kwl",
     characters: [
-      { name: "Pig", img: char10 },
-      { name: "Fire", img: char11 },
-      { name: "Red Nose", img: char12 },
+      {
+        name: "Pig",
+        img: char10,
+        coordinates: { xLeft: 235, xRight: 261, yTop: 430, yBottom: 470 },
+      },
+      {
+        name: "Fire",
+        img: char11,
+        coordinates: { xLeft: 170, xRight: 193, yTop: 828, yBottom: 849 },
+      },
+      {
+        name: "Red Nose",
+        img: char12,
+        coordinates: { xLeft: 621, xRight: 642, yTop: 259, yBottom: 298 },
+      },
     ],
   },
   {
@@ -59,9 +83,21 @@ export const gameLists = [
     source:
       "https://www.reddit.com/r/wimmelbilder/comments/gugkq9/dragon_charmers_island_by_gozz_sss_a_list_of/",
     characters: [
-      { name: "Wizard", img: char20 },
-      { name: "Raft", img: char21 },
-      { name: "Dog", img: char22 },
+      {
+        name: "Wizard",
+        img: char20,
+        coordinates: { xLeft: 2168, xRight: 2230, yTop: 2675, yBottom: 2737 },
+      },
+      {
+        name: "Raft",
+        img: char21,
+        coordinates: { xLeft: 115, xRight: 180, yTop: 1700, yBottom: 1773 },
+      },
+      {
+        name: "Dog",
+        img: char22,
+        coordinates: { xLeft: 1101, xRight: 1201, yTop: 1489, yBottom: 1554 },
+      },
     ],
   },
   {
@@ -72,9 +108,21 @@ export const gameLists = [
     source:
       "https://www.reddit.com/r/wimmelbilder/comments/j02nto/history_and_legend_all_mixed_up_by_marija_tiurina/",
     characters: [
-      { name: "Santa", img: char30 },
-      { name: "Bird", img: char31 },
-      { name: "Monkey", img: char32 },
+      {
+        name: "Santa",
+        img: char30,
+        coordinates: { xLeft: 1544, xRight: 1714, yTop: 2126, yBottom: 2300 },
+      },
+      {
+        name: "Bird",
+        img: char31,
+        coordinates: { xLeft: 837, xRight: 970, yTop: 770, yBottom: 922 },
+      },
+      {
+        name: "Monkey",
+        img: char32,
+        coordinates: { xLeft: 2200, xRight: 2340, yTop: 3359, yBottom: 3533 },
+      },
     ],
   },
 ];

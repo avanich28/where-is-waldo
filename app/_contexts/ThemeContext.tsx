@@ -14,21 +14,22 @@ function applyTheme(theme) {
 }
 
 function initialTheme() {
-  // FIXME BUG
-  // const theme = localStorage.getItem("theme")
-  //   ? localStorage.getItem("theme")
-  //   : "system";
-  const theme = "system";
+  const prevTheme = localStorage.getItem("theme");
+  const theme = prevTheme ? prevTheme : "system";
+
   return theme;
 }
 
 function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => initialTheme());
+  const [theme, setTheme] = useState("");
+
+  useEffect(function () {
+    setTheme(() => initialTheme());
+  }, []);
 
   useEffect(
     function () {
       if (theme === "system") {
-        // FIXME BUG
         const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
           .matches
           ? "dark"

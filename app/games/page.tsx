@@ -1,7 +1,7 @@
 import { JSX } from "react";
 import { gameLists } from "@/app/_utils/gameLists";
-import Box from "@/app/_features/games/Box";
 import Container from "@/app/_components/Container";
+import Box from "@/app/_features/games/Box";
 
 export const metadata = {
   title: "Games",

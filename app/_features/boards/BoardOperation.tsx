@@ -7,12 +7,12 @@ import { filters } from "@/app/_utils/constants";
 import { gameLists } from "@/app/_utils/gameLists";
 import Select from "@/app/_components/Select";
 
-function BoardOperation() {
-  const [curPicName, setCurPicName] = useState(gameLists[0].name);
-  const [curFilter, setCurFilter] = useState(filters[0]);
+function BoardOperation({ initialGameName, initialFilter }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [curGameName, setCurGameName] = useState(initialGameName);
+  const [curFilter, setCurFilter] = useState(initialFilter);
   const pictureData = gameLists.map((game, i) => ({
     value: `${i}-${game.href}`,
     text: game.name,
@@ -28,8 +28,7 @@ function BoardOperation() {
     [searchParams]
   );
 
-  // FIXME How to handle when id and query are not in the lists? (not-found)
-  function onChangePicture(e) {
+  function onChangeGameName(e) {
     const defaultFilter = filters[0];
     setCurFilter(defaultFilter);
     router.push(
@@ -46,9 +45,9 @@ function BoardOperation() {
       <Select
         name="picture"
         data={pictureData}
-        onChange={onChangePicture}
-        value={curPicName}
-        setValue={setCurPicName}
+        onChange={onChangeGameName}
+        value={curGameName}
+        setValue={setCurGameName}
         isLink={true}
         type="secondary"
       />
@@ -56,7 +55,7 @@ function BoardOperation() {
         <span className="text-[1.5em]">
           <IoFilter />
         </span>
-        {/* FIXME */}
+
         <Select
           name="filter"
           data={filters}

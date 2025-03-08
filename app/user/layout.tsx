@@ -1,5 +1,5 @@
-import UserOperation from "../_features/user/UserOperation";
-import Logout from "../_features/authentication/Logout";
+import UserOperation from "@/app/_features/user/UserOperation";
+import Logout from "@/app/_features/authentication/Logout";
 
 function Layout({ children }) {
   return (

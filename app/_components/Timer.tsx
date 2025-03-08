@@ -1,10 +1,11 @@
 "use client";
 
 import { MdAccessTime } from "react-icons/md";
-import { useGame } from "../_contexts/GameContext";
+import { useGame } from "@/app/_contexts/GameContext";
 
 function Timer() {
-  const { minutes, seconds } = useGame();
+  const { time } = useGame();
+  const { minutes, seconds } = time;
 
   return (
     <div className="flex gap-1 md:gap-2 items-center">
