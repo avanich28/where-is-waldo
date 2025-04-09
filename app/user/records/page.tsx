@@ -17,7 +17,7 @@ async function Page() {
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4 lg:gap-5 my-auto">
       {data.map((record) => {
-        const { gameId, place, timeCount } = record;
+        const { gameId, timeCount } = record;
         const { minutes, seconds } = calcMinsAndSecs(timeCount);
         const { name, artist, source } = gameLists[gameId];
 
@@ -28,8 +28,7 @@ async function Page() {
             addClassName={`${textDefaultStyle}`}
           >
             <ImageDetail name={name} artist={artist} source={source} />
-            <div className="mt-2">Your Best Place: {place}</div>
-            <div>
+            <div className="mt-2">
               Your Fastest Time: {minutes}:{seconds}
             </div>
           </Container>

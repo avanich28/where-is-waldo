@@ -9,14 +9,26 @@ import { useTheme } from "@/app/_contexts/ThemeContext";
 const linkDefaultStyle =
   "text-xl sm:text-2xl lg:text-3xl [&>*]:primaryTransition hover:[&>*]:text-hover-secondary hover:[&>*]:dark:text-hover-primary";
 
-function Nav(): JSX.Element {
+function Nav({ name }): JSX.Element {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <nav className={`flex gap-5 sm:gap-7 lg:gap-9 ${linkDefaultStyle}`}>
-      <Link href="/user/records">
-        <PiUserFill />
-      </Link>
+    <nav
+      className={`flex gap-5 sm:gap-7 lg:gap-9 items-center ${linkDefaultStyle}`}
+    >
+      {name && (
+        <>
+          <Link href="/user/records" className="md:hidden">
+            <PiUserFill />
+          </Link>
+          <Link
+            href="/user/records"
+            className="hidden md:inline-flex text-base lg:text-lg uppercase tracking-wider"
+          >
+            {name.length > 10 ? name.slice(0, 10) + "." : name}
+          </Link>
+        </>
+      )}
       <Link href="/boards">
         <PiTrophyFill />
       </Link>

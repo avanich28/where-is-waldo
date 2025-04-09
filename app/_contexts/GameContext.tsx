@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { gameLists } from "@/app/_utils/gameLists";
-import { calcMinsAndSecs } from "@/app/_utils/helpers";
+import { calcMinsAndSecs, convertStringIntoLink } from "@/app/_utils/helpers";
 import { createRecord } from "@/app/_lib/actions";
 
 const GameContext = createContext();
@@ -18,7 +18,9 @@ function GameProvider({ children }) {
   // Reset the game when players click other pages during playing the game
   useEffect(
     function () {
-      const pathLists = gameLists.map((game, i) => `/games/${i}-${game.href}`);
+      const pathLists = gameLists.map(
+        (game, i) => `/games/${i}-${convertStringIntoLink(game.name)}`
+      );
 
       if (!pathLists.includes(path)) {
         setIsPlay(false);
@@ -54,6 +56,9 @@ function GameProvider({ children }) {
       const { xLeft, xRight, yTop, yBottom } = character.coordinates;
       if (x > xLeft && x < xRight && y > yTop && y < yBottom) return character;
     })?.name;
+
+    // Prevent repeat
+    if (characterFound.includes(name)) return;
 
     if (name) setCharacterFound((arr) => [...arr, name]);
 

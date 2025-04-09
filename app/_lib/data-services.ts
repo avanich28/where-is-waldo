@@ -1,92 +1,126 @@
 "use server";
 
 import { notFound } from "next/navigation";
+import { prisma } from "./prisma";
+import { auth } from "./auth";
 import { gameLists } from "@/app/_utils/gameLists";
+import { convertStringIntoLink } from "@/app/_utils/helpers";
 
-// Check incorrect path
+// Prevent incorrect path for gameId and boardId
 function checkPathId(path) {
-  if (!gameLists.map((game, i) => `${i}-${game.href}`).includes(path))
-    return false;
+  const pathLists = gameLists.map(
+    (game, i) => `${i}-${convertStringIntoLink(game.name)}`
+  );
 
-  return true;
+  if (pathLists.includes(path)) return true;
+  return false;
 }
 
-export async function getUsername() {}
+export async function getUserData() {
+  const session = await auth();
+  if (!session) return { name: null };
 
-export async function getUserPassword() {}
+  const userId = Number(session.user?.id);
+
+  try {
+    const data = await prisma.user.findFirst({
+      where: { id: userId },
+      select: { name: true },
+    });
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Username could not be loaded!");
+  }
+}
 
 export async function getUserBestRecords() {
-  const timeCount = 12;
-  const data = [
-    { gameId: 0, place: 1, timeCount },
-    { gameId: 1, place: 2, timeCount: timeCount + 1 },
-    { gameId: 2, place: 3, timeCount: timeCount + 2 },
-    { gameId: 3, place: 4, timeCount: timeCount + 3 },
-  ];
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in!");
 
-  return data;
+  const userId = Number(session.user?.id);
+
+  try {
+    const data = await prisma.record.groupBy({
+      by: ["gameId"],
+      where: {
+        userId: userId,
+      },
+      _min: {
+        timeCount: true,
+      },
+    });
+
+    if (data.length === 0) return [];
+
+    const userFastestRecordByGame = data.map((record) => ({
+      // Start from 0 in an array index
+      gameId: record.gameId - 1,
+      timeCount: record._min.timeCount,
+    }));
+
+    return userFastestRecordByGame;
+  } catch (error) {
+    console.error(error);
+    throw new Error("User's best records could not be loaded!");
+  }
 }
 
 export async function getAllRecordsPerGame(boardId) {
+  // Cannot call function inside try/catch
   if (!checkPathId(boardId)) return notFound();
 
-  const id = Number(boardId.split("-")[0]);
+  // Start from 1 in DB
+  const id = 1 + Number(boardId.split("-")[0]);
 
-  // FIXME connect gameId with backend
-  function addDay(days) {
-    const date = new Date();
-    date.setDate(date.getDate() + days);
-    return date;
+  try {
+    const data = await prisma.game.findUnique({
+      where: {
+        id: Number(id),
+      },
+      include: {
+        records: {
+          where: {
+            gameId: id,
+          },
+          orderBy: {
+            timeCount: "asc",
+          },
+          select: {
+            user: {
+              select: { name: true },
+            },
+            timeCount: true,
+            createdAt: true,
+          },
+        },
+      },
+    });
+
+    if (!data) return [];
+
+    // Add a dense rank
+    let rank = 1;
+    let prevTimeCount = 0;
+    const recordsWithRank = data.records.map((obj, i) => {
+      const { user, timeCount, createdAt: date } = obj;
+      const { name } = user;
+
+      if (i === 0) {
+        prevTimeCount = timeCount;
+      } else if (timeCount > prevTimeCount) {
+        rank++;
+      }
+
+      return { rank, name, timeCount, date };
+    });
+
+    return recordsWithRank;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Records could not be loaded!");
   }
-
-  const data = [
-    { gameId: 0, name: "akari", timeCount: 3, date: addDay(0) },
-    {
-      gameId: 0,
-      name: "alicia",
-      timeCount: 4,
-      date: addDay(1),
-    },
-    { gameId: 0, name: "aika", timeCount: 5, date: addDay(2) },
-    { gameId: 0, name: "akira", timeCount: 6, date: addDay(3) },
-    { gameId: 1, name: "alice", timeCount: 7, date: addDay(4) },
-    {
-      gameId: 1,
-      name: "athena",
-      timeCount: 8,
-      date: addDay(5),
-    },
-    { gameId: 1, name: "aria", timeCount: 9, date: addDay(6) },
-    { gameId: 2, name: "hime", timeCount: 10, date: addDay(7) },
-    { gameId: 2, name: "ma", timeCount: 11, date: addDay(8) },
-    {
-      gameId: 2,
-      name: "akasuki",
-      timeCount: 12,
-      date: addDay(9),
-    },
-    { gameId: 3, name: "ai", timeCount: 13, date: addDay(10) },
-    {
-      gameId: 3,
-      name: "woody",
-      timeCount: 14,
-      date: addDay(11),
-    },
-    {
-      gameId: 3,
-      name: "grandma",
-      timeCount: 15,
-      date: addDay(12),
-    },
-    {
-      gameId: 3,
-      name: "postman",
-      timeCount: 16,
-      date: addDay(13),
-    },
-  ];
-
-  return data.filter((player) => player.gameId === id);
 }
 
 export async function getGameData(gameId) {

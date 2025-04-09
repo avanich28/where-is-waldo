@@ -2,6 +2,10 @@ export function isActive(curPathname, defaultLink) {
   return curPathname === defaultLink ? "active" : "";
 }
 
+export function convertStringIntoLink(string) {
+  return string.toLowerCase().split(" ").join("-");
+}
+
 function timeString(nums) {
   return String(nums).length < 2 ? `0${nums}` : `${nums}`;
 }
@@ -18,7 +22,9 @@ export function formatDate(date) {
     month: "short",
     year: "numeric",
   };
-  const format = new Intl.DateTimeFormat("en-US", options).format(date);
+  const format = new Intl.DateTimeFormat("en-US", options).format(
+    new Date(date)
+  );
 
   return format;
 }

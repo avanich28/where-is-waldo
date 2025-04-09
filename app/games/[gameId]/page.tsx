@@ -1,12 +1,13 @@
+import { getGameData } from "@/app/_lib/data-services";
+import { gameLists } from "@/app/_utils/gameLists";
+import { convertStringIntoLink } from "@/app/_utils/helpers";
 import Container from "@/app/_components/Container";
 import ImageDetail from "@/app/_components/ImageDetail";
 import Timer from "@/app/_components/Timer";
 import CharacterBox from "@/app/_features/games/CharacterBox";
-import GameEndModal from "@/app/GameEndModal";
+import GameEndModal from "@/app/_features/games/GameEndModal";
 import GameImage from "@/app/_features/games/GameImage";
 import RedirectToGamesPage from "@/app/_features/games/RedirectToGamesPage";
-import { getGameData } from "@/app/_lib/data-services";
-import { gameLists } from "@/app/_utils/gameLists";
 
 export async function generateMetadata({ params }) {
   const { gameId } = await params;
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }) {
 
 export async function generateStaticParams() {
   const ids = gameLists.map((game, i) => ({
-    gameId: `${i}-${game.href}`,
+    gameId: `${i}-${convertStringIntoLink(game.name)}`,
   }));
 
   return ids;
@@ -58,8 +59,8 @@ async function Page({ params }) {
             ))}
           </Container>
         </section>
-        <section className="w-full h-full">
-          <GameImage name={name} image={image} gameId={id} />
+        <section className="w-full h-full cursor-pointer">
+          <GameImage name={name} image={image} gameId={Number(id)} />
         </section>
       </main>
     </RedirectToGamesPage>

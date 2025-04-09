@@ -1,12 +1,13 @@
+"use client";
+
 import { TbLogout } from "react-icons/tb";
+import { logOutAction } from "@/app/_lib/actions";
 import Button from "@/app/_components/Button";
 
 function Logout() {
   return (
     <Button
-      btnType="submit"
-      // FIXME
-      onClick="/"
+      onClick={logOutAction}
       color="red"
       addClassName="flex items-center gap-1"
     >

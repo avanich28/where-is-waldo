@@ -1,7 +1,8 @@
 import "@/app/_styles/globals.css";
 import type { Metadata } from "next";
-import { ThemeProvider } from "@/app/_contexts/ThemeContext";
+import { Toaster } from "react-hot-toast";
 import { GameProvider } from "@/app/_contexts/GameContext";
+import { ThemeProvider } from "@/app/_contexts/ThemeContext";
 import Footer from "@/app/_components/Footer";
 import Header from "@/app/_components/Header";
 
@@ -21,6 +22,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex flex-col space-between gap-2 lg:gap-3 h-screen bg-light-bg dark:bg-dark-bg dark:text-dark-text">
+        <Toaster position="top-center" />
+
         <ThemeProvider>
           <GameProvider>
             <Header />

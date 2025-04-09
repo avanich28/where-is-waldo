@@ -27,7 +27,6 @@ import char32 from "@/public/232-monkey.jpg";
 export const gameLists = [
   {
     name: "Luca in Portorosso",
-    href: "luca-in-portorosso",
     image: [bg0, pic0],
     artist: "Ross Murray",
     source:
@@ -52,7 +51,6 @@ export const gameLists = [
   },
   {
     name: "Ghibli Bathhouse",
-    href: "ghibli-bathhouse",
     image: [bg1, pic1],
     artist: "Pocket Leslie",
     source:
@@ -77,7 +75,6 @@ export const gameLists = [
   },
   {
     name: "Dragon Island",
-    href: "dragon-island",
     image: [bg2, pic2],
     artist: "gozz",
     source:
@@ -102,7 +99,6 @@ export const gameLists = [
   },
   {
     name: "Journey Through Time",
-    href: "journey-through-time",
     image: [bg3, pic3],
     artist: "Marija Tiurina",
     source:

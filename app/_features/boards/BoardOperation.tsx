@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { IoFilter } from "react-icons/io5";
 import { filters } from "@/app/_utils/constants";
 import { gameLists } from "@/app/_utils/gameLists";
+import { convertStringIntoLink } from "@/app/_utils/helpers";
 import Select from "@/app/_components/Select";
 
 function BoardOperation({ initialGameName, initialFilter }) {
@@ -14,7 +15,7 @@ function BoardOperation({ initialGameName, initialFilter }) {
   const [curGameName, setCurGameName] = useState(initialGameName);
   const [curFilter, setCurFilter] = useState(initialFilter);
   const pictureData = gameLists.map((game, i) => ({
-    value: `${i}-${game.href}`,
+    value: `${i}-${convertStringIntoLink(game.name)}`,
     text: game.name,
   }));
 

@@ -1,24 +1,16 @@
-import { updatePassword, updateUsername } from "@/app/_lib/actions";
-import FormBox from "@/app/_components/FormBox";
-import Input from "@/app/_components/Input";
-import SubmitButton from "@/app/_components/SubmitButton";
+import { getUserData } from "@/app/_lib/data-services";
+import SettingsForm from "@/app/_features/authentication/SettingsForm";
 
 export const metadata = {
   title: "Settings",
 };
 
-function Page() {
+async function Page() {
+  const { name } = await getUserData();
+
   return (
     <section className="w-full sm:w-auto my-auto grid sm:grid-cols-2 gap-2 sm:gap-4 lg:gap-5">
-      <FormBox name="change your name" action={updateUsername}>
-        <Input label="name" />
-        <SubmitButton>Submit</SubmitButton>
-      </FormBox>
-      <FormBox name="change your password" action={updatePassword}>
-        <Input inputType="password" label="password" />
-        <Input inputType="password" label="password confirm" />
-        <SubmitButton>Submit</SubmitButton>
-      </FormBox>
+      <SettingsForm name={name} />
     </section>
   );
 }

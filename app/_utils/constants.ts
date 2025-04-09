@@ -1,3 +1,3 @@
 export const filters = ["fastest", "slowest", "latest", "oldest"];
 
-export const boardDetails = ["place", "name", "time", "date"];
+export const boardDetails = ["rank", "name", "time", "date"];
