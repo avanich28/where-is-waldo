@@ -1,27 +1,34 @@
-export function isActive(curPathname, defaultLink) {
+import { type Time } from "./types";
+
+export function isActive(
+  curPathname: string,
+  defaultLink: string
+): string | "" {
   return curPathname === defaultLink ? "active" : "";
 }
 
-export function convertStringIntoLink(string) {
+export function convertStringIntoLink(string: string): string {
   return string.toLowerCase().split(" ").join("-");
 }
 
-function timeString(nums) {
-  return String(nums).length < 2 ? `0${nums}` : `${nums}`;
+function timeString(time: number): string {
+  return String(time).length < 2 ? `0${time}` : `${time}`;
 }
-export function calcMinsAndSecs(timeCount) {
+
+export function calcMinsAndSecs(timeCount: number): Time {
   const minutes = Math.trunc(timeCount / 60);
   const seconds = timeCount % 60;
 
   return { minutes: timeString(minutes), seconds: timeString(seconds) };
 }
 
-export function formatDate(date) {
-  const options = {
+export function formatDate(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = {
     day: "numeric",
     month: "short",
     year: "numeric",
   };
+
   const format = new Intl.DateTimeFormat("en-US", options).format(
     new Date(date)
   );

@@ -1,15 +1,14 @@
 "use client";
 
-import { JSX } from "react";
 import Link from "next/link";
 import { PiTrophyFill, PiUserFill } from "react-icons/pi";
 import { TbMoonFilled, TbSunFilled } from "react-icons/tb";
 import { useTheme } from "@/app/_contexts/ThemeContext";
 
-const linkDefaultStyle =
+const linkDefaultStyle: string =
   "text-xl sm:text-2xl lg:text-3xl [&>*]:primaryTransition hover:[&>*]:text-hover-secondary hover:[&>*]:dark:text-hover-primary";
 
-function Nav({ name }): JSX.Element {
+function Nav({ name }: { name: string | undefined }) {
   const { theme, toggleTheme } = useTheme();
 
   return (

@@ -1,12 +1,17 @@
 "use client";
 
-import { useRef } from "react";
+import { type PropsWithChildren } from "react";
 
 // For login and signup form
-const bottomTextDefaultStyle =
+const bottomTextDefaultStyle: string =
   "[&>div:last-child]:text-xs [&>div:last-child]:sm:text-sm [&>div:last-child]:lg:text-base [&>div:last-child>span]:font-semibold [&>div:last-child>span]:sm:font-bold [&>div:last-child>span]:underline [&>div:last-child>span]:underline-offset-2 hover:[&>div:last-child>span>a]:text-hover-primary dark:hover:[&>div:last-child>span>a]:text-hover-secondary [&>div:last-child>span>a]:primaryTransition";
 
-function FormBox({ children, name, action }) {
+type FormBoxProps = PropsWithChildren<{
+  name: string;
+  action: (formData: FormData) => void;
+}>;
+
+function FormBox({ children, name, action }: FormBoxProps) {
   return (
     <form
       action={action}

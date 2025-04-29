@@ -1,13 +1,23 @@
 "use server";
 
 import { notFound } from "next/navigation";
-import { prisma } from "./prisma";
-import { auth } from "./auth";
 import { gameLists } from "@/app/_utils/gameLists";
 import { convertStringIntoLink } from "@/app/_utils/helpers";
+import {
+  type AllRecords,
+  type BestRecords,
+  type GameData,
+  type Username,
+  allRecordsPerGame,
+  baseUserSchema,
+  gameDataSchema,
+  userBestRecords,
+} from "@/app/_utils/types";
+import { auth } from "./auth";
+import { prisma } from "./prisma";
 
 // Prevent incorrect path for gameId and boardId
-function checkPathId(path) {
+function checkPathId(path: string): boolean {
   const pathLists = gameLists.map(
     (game, i) => `${i}-${convertStringIntoLink(game.name)}`
   );
@@ -16,9 +26,10 @@ function checkPathId(path) {
   return false;
 }
 
-export async function getUserData() {
+export async function getUserData(): Promise<Username | { name: undefined }> {
   const session = await auth();
-  if (!session) return { name: null };
+  // Don't break web app and throw error when a page is initially mounted
+  if (!session) return { name: undefined };
 
   const userId = Number(session.user?.id);
 
@@ -28,14 +39,14 @@ export async function getUserData() {
       select: { name: true },
     });
 
-    return data;
+    return baseUserSchema.parse(data);
   } catch (error) {
     console.error(error);
     throw new Error("Username could not be loaded!");
   }
 }
 
-export async function getUserBestRecords() {
+export async function getUserBestRecords(): Promise<BestRecords> {
   const session = await auth();
   if (!session) throw new Error("You must be logged in!");
 
@@ -60,14 +71,16 @@ export async function getUserBestRecords() {
       timeCount: record._min.timeCount,
     }));
 
-    return userFastestRecordByGame;
+    return userBestRecords.parse(userFastestRecordByGame);
   } catch (error) {
     console.error(error);
     throw new Error("User's best records could not be loaded!");
   }
 }
 
-export async function getAllRecordsPerGame(boardId) {
+export async function getAllRecordsPerGame(
+  boardId: string
+): Promise<AllRecords> {
   // Cannot call function inside try/catch
   if (!checkPathId(boardId)) return notFound();
 
@@ -116,17 +129,17 @@ export async function getAllRecordsPerGame(boardId) {
       return { rank, name, timeCount, date };
     });
 
-    return recordsWithRank;
+    return allRecordsPerGame.parse(recordsWithRank);
   } catch (error) {
     console.error(error);
     throw new Error("Records could not be loaded!");
   }
 }
 
-export async function getGameData(gameId) {
+export async function getGameData(gameId: string): Promise<GameData> {
   if (!checkPathId(gameId)) return notFound();
 
   const id = Number(gameId.split("-")[0]);
 
-  return { id, ...gameLists[id] };
+  return gameDataSchema.parse({ id, ...gameLists[id] });
 }

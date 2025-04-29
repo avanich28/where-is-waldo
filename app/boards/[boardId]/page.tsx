@@ -1,13 +1,22 @@
-import { filters } from "@/app/_utils/constants";
 import { getAllRecordsPerGame } from "@/app/_lib/data-services";
-import BoardOperation from "@/app/_features/boards/BoardOperation";
+import { filters } from "@/app/_utils/constants";
 import BoardLists from "@/app/_features/boards/BoardLists";
+import BoardOperation from "@/app/_features/boards/BoardOperation";
 
 export const metadata = {
   title: "Leaderboard",
 };
 
-async function Page({ params, searchParams }) {
+type PageProps = {
+  params: {
+    boardId: string;
+  };
+  searchParams: {
+    filter?: "fastest" | "slowest" | "latest" | "oldest";
+  };
+};
+
+async function Page({ params, searchParams }: PageProps) {
   const { boardId } = await params;
   const query = await searchParams;
   const data = await getAllRecordsPerGame(boardId);

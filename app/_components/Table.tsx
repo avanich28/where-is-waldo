@@ -1,4 +1,10 @@
-function Table({ children, headers }) {
+import { type PropsWithChildren } from "react";
+
+type TableProps = PropsWithChildren<{
+  headers: string[];
+}>;
+
+function Table({ children, headers }: TableProps) {
   return (
     <section className="relative h-full">
       <div className="absolute w-full h-full border-hidden border-light-container dark:border-dark-container rounded-md overflow-auto scrollbar bg-light-container dark:bg-dark-container">

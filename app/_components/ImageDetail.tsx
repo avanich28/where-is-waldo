@@ -1,7 +1,13 @@
 import { LuGamepad2 } from "react-icons/lu";
 import HyperLink from "./HyperLink";
 
-function ImageDetail({ name, artist, source }) {
+type ImageDetailProps = {
+  name: string;
+  artist: string;
+  source: string;
+};
+
+function ImageDetail({ name, artist, source }: ImageDetailProps) {
   return (
     <div className="flex items-center gap-2 md:gap-3">
       <span className="text-[1.8em]">

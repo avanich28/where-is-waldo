@@ -1,17 +1,38 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { usePathname } from "next/navigation";
+import { createRecord } from "@/app/_lib/actions";
 import { gameLists } from "@/app/_utils/gameLists";
 import { calcMinsAndSecs, convertStringIntoLink } from "@/app/_utils/helpers";
-import { createRecord } from "@/app/_lib/actions";
+import { type Coordinates, type Time } from "@/app/_utils/types";
 
-const GameContext = createContext();
+type GameContextType<T, U> = {
+  isPlay: T;
+  setIsPlay: Dispatch<SetStateAction<T>>;
+  time: Time;
+  characterFound: U[];
+  checkCoordinate: ({ x, y, gameId }: Coordinates) => void;
+  reset: () => void;
+};
 
-function GameProvider({ children }) {
+const GameContext = createContext<GameContextType<boolean, string> | undefined>(
+  undefined
+);
+
+function GameProvider({ children }: { children: React.ReactNode }) {
   const path = usePathname();
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [isPlay, setIsPlay] = useState(false);
-  const [characterFound, setCharacterFound] = useState([]);
+  const [characterFound, setCharacterFound] = useState<string[]>([]);
   const [timeCount, setTimeCount] = useState(0);
   const time = calcMinsAndSecs(timeCount);
 
@@ -32,33 +53,32 @@ function GameProvider({ children }) {
 
   useEffect(
     function () {
-      let interval = null;
       if (isPlay) {
-        interval = setInterval(
+        intervalRef.current = setInterval(
           () => setTimeCount((prevCount) => prevCount + 1),
           1000
         );
       }
 
       return () => {
-        if (interval) {
-          clearInterval(interval);
-          interval = null;
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
         }
       };
     },
     [isPlay]
   );
 
-  function checkCoordinate(x, y, gameId) {
+  function checkCoordinate({ x, y, gameId }: Coordinates): void {
     const characters = gameLists[gameId].characters;
     const name = characters.find((character) => {
       const { xLeft, xRight, yTop, yBottom } = character.coordinates;
       if (x > xLeft && x < xRight && y > yTop && y < yBottom) return character;
     })?.name;
 
-    // Prevent repeat
-    if (characterFound.includes(name)) return;
+    // Prevent repeat or not found
+    if (characterFound.includes(name as string) || name === undefined) return;
 
     if (name) setCharacterFound((arr) => [...arr, name]);
 

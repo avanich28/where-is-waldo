@@ -1,6 +1,6 @@
 import Container from "./Container";
 
-function Modal({ children }) {
+function Modal({ children }: { children: React.ReactNode }) {
   return (
     <div className="fixed top-0 h-screen w-screen flex justify-center items-center z-20">
       <div className="h-full w-full bg-gray-800 dark:bg-black opacity-50"></div>

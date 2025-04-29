@@ -1,9 +1,16 @@
 "use client";
 
+import { StaticImageData } from "next/image";
 import { useGame } from "@/app/_contexts/GameContext";
 import ImageBox from "@/app/_components/ImageBox";
 
-function CharacterBox({ src, alt, name }) {
+type CharacterBoxProps = {
+  src: StaticImageData;
+  alt: string;
+  name: string;
+};
+
+function CharacterBox({ src, alt, name }: CharacterBoxProps) {
   const { characterFound } = useGame();
 
   return (

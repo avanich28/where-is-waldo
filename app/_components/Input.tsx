@@ -1,3 +1,12 @@
+type InputProps = {
+  type?: string;
+  name: string;
+  defaultValue?: string;
+  isPending: boolean;
+  minLength?: number;
+  maxLength?: number;
+};
+
 function Input({
   type = "text",
   name,
@@ -5,7 +14,7 @@ function Input({
   isPending,
   minLength = 1,
   maxLength = 30,
-}) {
+}: InputProps) {
   return (
     <input
       type={type}

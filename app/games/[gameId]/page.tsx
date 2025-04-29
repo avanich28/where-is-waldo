@@ -9,7 +9,13 @@ import GameEndModal from "@/app/_features/games/GameEndModal";
 import GameImage from "@/app/_features/games/GameImage";
 import RedirectToGamesPage from "@/app/_features/games/RedirectToGamesPage";
 
-export async function generateMetadata({ params }) {
+type PageProps = {
+  params: {
+    gameId: string;
+  };
+};
+
+export async function generateMetadata({ params }: PageProps) {
   const { gameId } = await params;
 
   return {
@@ -29,7 +35,7 @@ export async function generateStaticParams() {
   return ids;
 }
 
-async function Page({ params }) {
+async function Page({ params }: PageProps) {
   const { gameId } = await params;
   const { id, name, image, artist, source, characters } = await getGameData(
     gameId

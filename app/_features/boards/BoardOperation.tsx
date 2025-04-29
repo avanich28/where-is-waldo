@@ -8,7 +8,15 @@ import { gameLists } from "@/app/_utils/gameLists";
 import { convertStringIntoLink } from "@/app/_utils/helpers";
 import Select from "@/app/_components/Select";
 
-function BoardOperation({ initialGameName, initialFilter }) {
+type BoardOperationProps = {
+  initialGameName: string;
+  initialFilter: string;
+};
+
+function BoardOperation({
+  initialGameName,
+  initialFilter,
+}: BoardOperationProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -20,7 +28,7 @@ function BoardOperation({ initialGameName, initialFilter }) {
   }));
 
   const createQueryString = useCallback(
-    function (name, value) {
+    function (name: string, value: string): string {
       const params = new URLSearchParams(searchParams.toString());
       params.set(name, value);
 
@@ -29,7 +37,9 @@ function BoardOperation({ initialGameName, initialFilter }) {
     [searchParams]
   );
 
-  function onChangeGameName(e) {
+  function onChangeGameName(e: React.ChangeEvent<HTMLSelectElement>) {
+    setCurGameName(e.target.value);
+
     const defaultFilter = filters[0];
     setCurFilter(defaultFilter);
     router.push(
@@ -37,7 +47,9 @@ function BoardOperation({ initialGameName, initialFilter }) {
     );
   }
 
-  function onChangeFilter(e) {
+  function onChangeFilter(e: React.ChangeEvent<HTMLSelectElement>) {
+    setCurFilter(e.target.value);
+
     router.push(pathname + "?" + createQueryString("filter", e.target.value));
   }
 
@@ -48,7 +60,6 @@ function BoardOperation({ initialGameName, initialFilter }) {
         data={pictureData}
         onChange={onChangeGameName}
         value={curGameName}
-        setValue={setCurGameName}
         isLink={true}
         type="secondary"
       />
@@ -62,7 +73,6 @@ function BoardOperation({ initialGameName, initialFilter }) {
           data={filters}
           onChange={onChangeFilter}
           value={curFilter}
-          setValue={setCurFilter}
         />
       </div>
     </>

@@ -23,8 +23,9 @@ import char22 from "@/public/222-dog.png";
 import char30 from "@/public/230-santa.jpg";
 import char31 from "@/public/231-bird.jpg";
 import char32 from "@/public/232-monkey.jpg";
+import { GameLists } from "./types";
 
-export const gameLists = [
+export const gameLists: GameLists = [
   {
     name: "Luca in Portorosso",
     image: [bg0, pic0],

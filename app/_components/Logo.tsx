@@ -1,4 +1,3 @@
-import { JSX } from "react";
 import Link from "next/link";
 import { Passero_One } from "next/font/google";
 import { TbTargetArrow } from "react-icons/tb";
@@ -9,7 +8,7 @@ const passeroOne = Passero_One({
   weight: "400",
 });
 
-function Logo(): JSX.Element {
+function Logo() {
   return (
     <Link
       href="/games"

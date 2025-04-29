@@ -1,9 +1,16 @@
 import { boardDetails, filters } from "@/app/_utils/constants";
+import { type AllRecords } from "@/app/_utils/types";
 import Table from "@/app/_components/Table";
 import TableRow from "@/app/_components/TableRow";
 import BoardItem from "./BoardItem";
 
-function BoardLists({ boardId, filter, data }) {
+type BoardListsProps = {
+  boardId: string;
+  filter: string;
+  data: AllRecords;
+};
+
+function BoardLists({ boardId, filter, data }: BoardListsProps) {
   const fastestFilterData = data.slice(0);
 
   if (filter === filters[1]) data.sort((a, b) => b.timeCount - a.timeCount);

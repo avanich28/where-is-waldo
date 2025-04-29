@@ -1,6 +1,6 @@
+import { getUserBestRecords } from "@/app/_lib/data-services";
 import { gameLists } from "@/app/_utils/gameLists";
 import { calcMinsAndSecs } from "@/app/_utils/helpers";
-import { getUserBestRecords } from "@/app/_lib/data-services";
 import Container from "@/app/_components/Container";
 import ImageDetail from "@/app/_components/ImageDetail";
 

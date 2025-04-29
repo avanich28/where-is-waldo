@@ -1,3 +1,3 @@
-export const filters = ["fastest", "slowest", "latest", "oldest"];
+export const filters: string[] = ["fastest", "slowest", "latest", "oldest"];
 
-export const boardDetails = ["rank", "name", "time", "date"];
+export const boardDetails: string[] = ["rank", "name", "time", "date"];

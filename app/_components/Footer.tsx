@@ -1,8 +1,7 @@
-import { JSX } from "react";
 import { FaGithub } from "react-icons/fa";
 import HyperLink from "./HyperLink";
 
-function Footer(): JSX.Element {
+function Footer() {
   return (
     <footer className="pb-4 flex justify-center">
       <HyperLink

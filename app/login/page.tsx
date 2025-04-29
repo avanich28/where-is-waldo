@@ -1,4 +1,4 @@
-import LogInForm from "../_features/authentication/LoginForm";
+import LogInForm from "@/app/_features/authentication/LoginForm";
 
 export const metadata = {
   title: "Login",

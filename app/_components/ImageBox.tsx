@@ -1,7 +1,17 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
-const defaultStyles = {
+type ImageBoxStyles = "primary";
+
+const defaultStyles: Record<ImageBoxStyles, string> = {
   primary: "object-center object-cover",
+};
+
+type ImageBoxProps = {
+  src: StaticImageData;
+  alt: string;
+  quality?: number;
+  type?: ImageBoxStyles;
+  addClassName?: string;
 };
 
 function ImageBox({
@@ -10,7 +20,7 @@ function ImageBox({
   quality = 100,
   type = "primary",
   addClassName = "",
-}) {
+}: ImageBoxProps) {
   return (
     <Image
       src={src}

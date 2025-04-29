@@ -1,33 +1,37 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { useGame } from "@/app/_contexts/GameContext";
 
-function GameImage({ name, image, gameId }) {
-  const imageRef = useRef(null);
+type GameImageProps = {
+  name: string;
+  image: StaticImageData[];
+  gameId: number;
+};
+
+function GameImage({ name, image, gameId }: GameImageProps) {
+  const imageRef = useRef<HTMLImageElement | null>(null);
   const { checkCoordinate } = useGame();
 
-  function onClick(e) {
+  function onClick(e: React.MouseEvent<HTMLDivElement>) {
     const image = imageRef.current;
 
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
+    if (image) {
+      const scaleX = image.naturalWidth / image.width;
+      const scaleY = image.naturalHeight / image.height;
 
-    const x = e.nativeEvent.offsetX * scaleX;
-    const y = e.nativeEvent.offsetY * scaleY;
+      const x = e.nativeEvent.offsetX * scaleX;
+      const y = e.nativeEvent.offsetY * scaleY;
 
-    checkCoordinate(x, y, gameId);
+      checkCoordinate({ x, y, gameId });
+    }
   }
 
   return (
-    <Image
-      ref={imageRef}
-      src={image[1]}
-      alt={name}
-      placeholder="blur"
-      onClick={onClick}
-    />
+    <div onClick={onClick}>
+      <Image ref={imageRef} src={image[1]} alt={name} placeholder="blur" />
+    </div>
   );
 }
 

@@ -1,6 +1,11 @@
 import { calcMinsAndSecs, formatDate } from "@/app/_utils/helpers";
+import { type BoardRecord } from "@/app/_utils/types";
 
-function BoardItem({ record }) {
+type BoardItemProp = {
+  record: BoardRecord;
+};
+
+function BoardItem({ record }: BoardItemProp) {
   const { rank, name, timeCount, date } = record;
   const { minutes, seconds } = calcMinsAndSecs(timeCount);
 

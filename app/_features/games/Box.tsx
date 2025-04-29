@@ -1,20 +1,28 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useGame } from "@/app/_contexts/GameContext";
-import ImageBox from "@/app/_components/ImageBox";
 import { convertStringIntoLink } from "@/app/_utils/helpers";
+import { type BaseGameData } from "@/app/_utils/types";
+import ImageBox from "@/app/_components/ImageBox";
+import { useGame } from "@/app/_contexts/GameContext";
 
 const defaultStyles = {
   leftTop: "hover:bg-hover-primary",
   rightTop: "hover:bg-green-700",
   leftBottom: "hover:bg-hover-secondary",
   rightBottom: "hover:bg-red-700",
+} as const;
+
+type styleKeys = keyof typeof defaultStyles;
+
+const boxPositionArr = Object.keys(defaultStyles) as styleKeys[];
+
+type BoxProps = {
+  id: number;
+  data: BaseGameData;
 };
 
-const boxPositionArr = Object.keys(defaultStyles);
-
-function Box({ id, data }) {
+function Box({ id, data }: BoxProps) {
   const { setIsPlay } = useGame();
   const router = useRouter();
   const { name, image } = data;

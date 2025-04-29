@@ -3,19 +3,33 @@
 import { useActionState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { updatePassword, updateUsername } from "@/app/_lib/actions";
+import { type FormError } from "@/app/_utils/types";
 import FormBox from "@/app/_components/FormBox";
 import FormRow from "@/app/_components/FormRow";
 import Input from "@/app/_components/Input";
 import SubmitButton from "@/app/_components/SubmitButton";
 
-function UpdateUsernameForm({ name }) {
-  const [state, formAction, isPending] = useActionState(updateUsername, {
-    error: "",
-  });
+type UsernameProp = {
+  name: string | undefined;
+};
+
+const initialStateUpdateUsername: FormError = {
+  error: false,
+};
+
+const initialStateUpdatePassword: FormError = {
+  error: false,
+};
+
+function UpdateUsernameForm({ name }: UsernameProp) {
+  const [state, formAction, isPending] = useActionState(
+    updateUsername,
+    initialStateUpdateUsername
+  );
 
   useEffect(
     function () {
-      if (state?.error) toast.error(state?.error);
+      if (state.error && state.message) toast.error(state.message);
     },
     [state]
   );
@@ -36,13 +50,14 @@ function UpdateUsernameForm({ name }) {
 }
 
 function UpdatePasswordForm() {
-  const [state, formAction, isPending] = useActionState(updatePassword, {
-    error: "",
-  });
+  const [state, formAction, isPending] = useActionState(
+    updatePassword,
+    initialStateUpdatePassword
+  );
 
   useEffect(
     function () {
-      if (state?.error) toast.error(state?.error);
+      if (state.error && state.message) toast.error(state.message);
     },
     [state]
   );
@@ -66,7 +81,7 @@ function UpdatePasswordForm() {
   );
 }
 
-function SettingsForm({ name }) {
+function SettingsForm({ name }: UsernameProp) {
   return (
     <>
       <UpdateUsernameForm name={name} />

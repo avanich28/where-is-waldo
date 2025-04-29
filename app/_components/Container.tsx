@@ -1,4 +1,8 @@
-const defaultStyles = {
+import { type PropsWithChildren } from "react";
+
+type ContainerStyles = "primary" | "secondary" | "square";
+
+const defaultStyles: Record<ContainerStyles, string> = {
   primary:
     "flex flex-wrap p-1 rounded-md bg-light-container dark:bg-dark-container",
   secondary:
@@ -6,7 +10,16 @@ const defaultStyles = {
   square: "grid grid-cols-2 grid-rows-2 gap-3 sm:gap-5 lg:gap-6",
 };
 
-function Container({ children, type = "primary", addClassName = "" }) {
+type ContainerProps = PropsWithChildren<{
+  type?: ContainerStyles;
+  addClassName?: string;
+}>;
+
+function Container({
+  children,
+  type = "primary",
+  addClassName = "",
+}: ContainerProps) {
   return (
     <div className={`${defaultStyles[type]} ${addClassName}`}>{children}</div>
   );

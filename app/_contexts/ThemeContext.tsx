@@ -2,30 +2,24 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-const ThemeContext = createContext();
+type Theme = "system" | "light" | "dark";
 
-function applyTheme(theme) {
+type ThemeContextType = {
+  theme: Theme;
+  toggleTheme: () => void;
+};
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+function applyTheme(theme: Theme): void {
   const root = window.document.documentElement;
-
-  localStorage.setItem("theme", theme);
 
   if (theme === "dark") root.classList.add(theme);
   else root.classList.remove("dark");
 }
 
-function initialTheme() {
-  const prevTheme = localStorage.getItem("theme");
-  const theme = prevTheme ? prevTheme : "system";
-
-  return theme;
-}
-
-function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState("");
-
-  useEffect(function () {
-    setTheme(() => initialTheme());
-  }, []);
+function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<Theme>("system");
 
   useEffect(
     function () {
@@ -37,13 +31,15 @@ function ThemeProvider({ children }) {
 
         setTheme(systemTheme);
         applyTheme(systemTheme);
-      } else applyTheme(theme);
+      }
     },
     [theme]
   );
 
   function toggleTheme() {
-    setTheme((color) => (color === "dark" ? "light" : "dark"));
+    const curTheme = theme === "dark" ? "light" : "dark";
+    setTheme(curTheme);
+    applyTheme(curTheme);
   }
 
   return (

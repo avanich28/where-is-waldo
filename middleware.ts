@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/app/_lib/auth";
-import { gameLists } from "@/app/_utils/gameLists";
 import { filters } from "@/app/_utils/constants";
+import { gameLists } from "@/app/_utils/gameLists";
 import { convertStringIntoLink } from "@/app/_utils/helpers";
 
 export async function middleware(request: NextRequest) {
@@ -21,9 +21,13 @@ export async function middleware(request: NextRequest) {
     );
   }
 
-  const authResult = await auth(request);
+  const session = await auth();
 
-  return authResult || NextResponse.redirect(new URL("/login", request.url));
+  if (!session?.user) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {

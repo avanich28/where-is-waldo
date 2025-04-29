@@ -1,22 +1,28 @@
 "use client";
 
-import Link from "next/link";
 import { useActionState, useEffect } from "react";
+import Link from "next/link";
 import toast from "react-hot-toast";
 import { logInAction } from "@/app/_lib/actions";
+import { type FormError } from "@/app/_utils/types";
 import FormBox from "@/app/_components/FormBox";
 import FormRow from "@/app/_components/FormRow";
 import Input from "@/app/_components/Input";
 import SubmitButton from "@/app/_components/SubmitButton";
 
+const initialState: FormError = {
+  error: false,
+};
+
 function LogInForm() {
-  const [state, formAction, isPending] = useActionState(logInAction, {
-    error: "",
-  });
+  const [state, formAction, isPending] = useActionState(
+    logInAction,
+    initialState
+  );
 
   useEffect(
     function () {
-      if (state.error) toast.error(state.error);
+      if (state.error && state.message) toast.error(state.message);
     },
     [state]
   );
