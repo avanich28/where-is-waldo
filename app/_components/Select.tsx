@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 type SelectStyles = "primary" | "secondary";
 
 const defaultStyles: Record<SelectStyles, string> = {
@@ -53,4 +55,4 @@ function Select({
   );
 }
 
-export default Select;
+export default memo(Select);

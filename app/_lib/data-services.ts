@@ -101,6 +101,7 @@ export async function getAllRecordsPerGame(
             timeCount: "asc",
           },
           select: {
+            id: true,
             user: {
               select: { name: true },
             },
@@ -117,7 +118,7 @@ export async function getAllRecordsPerGame(
     let rank = 1;
     let prevTimeCount = 0;
     const recordsWithRank = data.records.map((obj, i) => {
-      const { user, timeCount, createdAt: date } = obj;
+      const { id, user, timeCount, createdAt: date } = obj;
       const { name } = user;
 
       if (i === 0) {
@@ -126,7 +127,7 @@ export async function getAllRecordsPerGame(
         rank++;
       }
 
-      return { rank, name, timeCount, date };
+      return { id, rank, name, timeCount, date };
     });
 
     return allRecordsPerGame.parse(recordsWithRank);

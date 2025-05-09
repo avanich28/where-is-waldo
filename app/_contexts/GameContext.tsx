@@ -4,16 +4,18 @@ import {
   createContext,
   Dispatch,
   SetStateAction,
+  useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
-import { usePathname } from "next/navigation";
 import { createRecord } from "@/app/_lib/actions";
 import { gameLists } from "@/app/_utils/gameLists";
 import { calcMinsAndSecs, convertStringIntoLink } from "@/app/_utils/helpers";
 import { type Coordinates, type Time } from "@/app/_utils/types";
+import { useInitialParams } from "../_hooks/useInitialParams";
 
 type GameContextType<T, U> = {
   isPlay: T;
@@ -29,11 +31,15 @@ const GameContext = createContext<GameContextType<boolean, string> | undefined>(
 );
 
 function GameProvider({ children }: { children: React.ReactNode }) {
-  const path = usePathname();
+  const { pathname } = useInitialParams();
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [isPlay, setIsPlay] = useState(false);
   const [characterFound, setCharacterFound] = useState<string[]>([]);
   const [timeCount, setTimeCount] = useState(0);
+  const [record, setRecord] = useState<{
+    status: boolean;
+    gameId: null | number;
+  }>({ status: false, gameId: null });
   const time = calcMinsAndSecs(timeCount);
 
   // Reset the game when players click other pages during playing the game
@@ -43,12 +49,12 @@ function GameProvider({ children }: { children: React.ReactNode }) {
         (game, i) => `/games/${i}-${convertStringIntoLink(game.name)}`
       );
 
-      if (!pathLists.includes(path)) {
+      if (!pathLists.includes(pathname)) {
         setIsPlay(false);
         reset();
       }
     },
-    [path]
+    [pathname]
   );
 
   useEffect(
@@ -70,44 +76,57 @@ function GameProvider({ children }: { children: React.ReactNode }) {
     [isPlay]
   );
 
-  function checkCoordinate({ x, y, gameId }: Coordinates): void {
-    const characters = gameLists[gameId].characters;
-    const name = characters.find((character) => {
-      const { xLeft, xRight, yTop, yBottom } = character.coordinates;
-      if (x > xLeft && x < xRight && y > yTop && y < yBottom) return character;
-    })?.name;
+  // Add this because don't want to re-render GameImage component
+  useEffect(
+    function () {
+      if (record.status && typeof record.gameId === "number") {
+        createRecord({ gameId: record.gameId, timeCount });
+        setRecord({ status: false, gameId: null });
+      }
+    },
+    [record, timeCount]
+  );
 
-    // Prevent repeat or not found
-    if (characterFound.includes(name as string) || name === undefined) return;
+  const checkCoordinate = useCallback(
+    function ({ x, y, gameId }: Coordinates): void {
+      const characters = gameLists[gameId].characters;
+      const name = characters.find((character) => {
+        const { xLeft, xRight, yTop, yBottom } = character.coordinates;
+        if (x > xLeft && x < xRight && y > yTop && y < yBottom)
+          return character;
+      })?.name;
 
-    if (name) setCharacterFound((arr) => [...arr, name]);
+      // Prevent repeat or not found
+      if (characterFound.includes(name as string) || name === undefined) return;
 
-    // Check all characters that are all found and save a record
-    if (name && characterFound.length + 1 === 3) {
-      setIsPlay(false);
-      createRecord({ gameId, timeCount });
-    }
-  }
+      if (name) setCharacterFound((arr) => [...arr, name]);
+
+      // Check all characters that are all found and save a record
+      if (name && characterFound.length + 1 === 3) {
+        setIsPlay(false);
+        setRecord({ status: true, gameId });
+      }
+    },
+    [characterFound]
+  );
 
   function reset() {
     setCharacterFound([]);
     setTimeCount(0);
   }
 
-  return (
-    <GameContext.Provider
-      value={{
-        isPlay,
-        setIsPlay,
-        time,
-        characterFound,
-        checkCoordinate,
-        reset,
-      }}
-    >
-      {children}
-    </GameContext.Provider>
-  );
+  const value = useMemo(() => {
+    return {
+      isPlay,
+      setIsPlay,
+      time,
+      characterFound,
+      checkCoordinate,
+      reset,
+    };
+  }, [isPlay, time, characterFound, checkCoordinate]);
+
+  return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
 }
 
 function useGame() {

@@ -59,7 +59,7 @@ export async function signUpAction(
     });
   } catch (error) {
     console.error(error);
-    console.error(error.stack); // FIXME
+    // console.error(error.stack);
     return { error: true, message: "Failed to sign up, please try again!" };
   }
 
@@ -87,7 +87,7 @@ export async function logInAction(
     });
   } catch (error) {
     console.error(error);
-    console.error(error.stack);
+    // console.error(error.stack);
     return { error: true, message: "Invalid email or password" };
   }
 
@@ -136,7 +136,7 @@ export async function updateUsername(
     });
   } catch (error) {
     console.error(error);
-    console.error(error.stack);
+    // console.error(error.stack);
     // 4) Error Handling
     return { error: true, message: "Username could not be updated!" };
   }
@@ -183,7 +183,7 @@ export async function updatePassword(
     return { error: false };
   } catch (error) {
     console.error(error);
-    console.error(error.stack);
+    // console.error(error.stack);
     return {
       error: true,
       message: "Password could not be updated! Please try again",
@@ -209,7 +209,7 @@ export async function createRecord(data: Record): Promise<void> {
     });
   } catch (error) {
     console.error(error);
-    console.error(error.stack);
+    // console.error(error.stack);
     throw new Error("Record could not be created! Please try again later");
   }
 

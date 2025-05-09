@@ -1,57 +1,59 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { IoFilter } from "react-icons/io5";
+import { useInitialParams } from "@/app/_hooks/useInitialParams";
 import { filters } from "@/app/_utils/constants";
 import { gameLists } from "@/app/_utils/gameLists";
 import { convertStringIntoLink } from "@/app/_utils/helpers";
 import Select from "@/app/_components/Select";
 
-type BoardOperationProps = {
-  initialGameName: string;
-  initialFilter: string;
-};
-
-function BoardOperation({
-  initialGameName,
-  initialFilter,
-}: BoardOperationProps) {
+function BoardOperation() {
   const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const [curGameName, setCurGameName] = useState(initialGameName);
-  const [curFilter, setCurFilter] = useState(initialFilter);
-  const pictureData = gameLists.map((game, i) => ({
-    value: `${i}-${convertStringIntoLink(game.name)}`,
-    text: game.name,
-  }));
-
-  const createQueryString = useCallback(
-    function (name: string, value: string): string {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams]
+  const { pathname, params, searchParams } = useInitialParams();
+  const [curGameName, setCurGameName] = useState(params.boardId as string);
+  const [curFilter, setCurFilter] = useState(searchParams.filter || filters[0]);
+  const pictureData = useMemo(
+    () =>
+      gameLists.map((game, i) => ({
+        value: `${i}-${convertStringIntoLink(game.name)}`,
+        text: game.name,
+      })),
+    []
   );
 
-  function onChangeGameName(e: React.ChangeEvent<HTMLSelectElement>) {
-    setCurGameName(e.target.value);
+  const createQueryString = useCallback(function (
+    name: string,
+    value: string
+  ): string {
+    const params = new URLSearchParams();
+    params.set(name, value);
 
-    const defaultFilter = filters[0];
-    setCurFilter(defaultFilter);
-    router.push(
-      e.target.value + "?" + createQueryString("filter", defaultFilter)
-    );
-  }
+    return params.toString();
+  },
+  []);
 
-  function onChangeFilter(e: React.ChangeEvent<HTMLSelectElement>) {
-    setCurFilter(e.target.value);
+  const onChangeGameName = useCallback(
+    function (e: React.ChangeEvent<HTMLSelectElement>) {
+      setCurGameName(e.target.value);
 
-    router.push(pathname + "?" + createQueryString("filter", e.target.value));
-  }
+      const defaultFilter = filters[0];
+      router.push(
+        e.target.value + "?" + createQueryString("filter", defaultFilter)
+      );
+    },
+    [createQueryString, router]
+  );
+
+  const onChangeFilter = useCallback(
+    function (e: React.ChangeEvent<HTMLSelectElement>) {
+      setCurFilter(e.target.value);
+
+      router.push(pathname + "?" + createQueryString("filter", e.target.value));
+    },
+    [createQueryString, router, pathname]
+  );
 
   return (
     <>

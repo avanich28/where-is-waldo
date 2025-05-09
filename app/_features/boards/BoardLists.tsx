@@ -11,8 +11,6 @@ type BoardListsProps = {
 };
 
 function BoardLists({ boardId, filter, data }: BoardListsProps) {
-  const fastestFilterData = data.slice(0);
-
   if (filter === filters[1]) data.sort((a, b) => b.timeCount - a.timeCount);
   else if (filter === filters[2])
     data.sort(
@@ -22,12 +20,11 @@ function BoardLists({ boardId, filter, data }: BoardListsProps) {
     data.sort(
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
     );
-  else data = fastestFilterData;
 
   return (
     <Table headers={boardDetails}>
-      {data.map((record, i) => (
-        <TableRow key={`${boardId}-${filter}-${i}`}>
+      {data.map((record) => (
+        <TableRow key={`${boardId}-${record.id}`}>
           <BoardItem record={record} />
         </TableRow>
       ))}

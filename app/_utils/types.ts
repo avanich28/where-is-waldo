@@ -45,6 +45,7 @@ export const userBestRecords = z
 export type BestRecords = z.infer<typeof userBestRecords>;
 
 export const boardRecord = z.object({
+  id: z.number().positive(),
   rank: z.number().positive(),
   name: z.string(),
   timeCount: z.number(),
