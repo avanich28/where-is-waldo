@@ -11,11 +11,11 @@ import {
   useRef,
   useState,
 } from "react";
+import { usePathname } from "next/navigation";
 import { createRecord } from "@/app/_lib/actions";
 import { gameLists } from "@/app/_utils/gameLists";
 import { calcMinsAndSecs, convertStringIntoLink } from "@/app/_utils/helpers";
 import { type Coordinates, type Time } from "@/app/_utils/types";
-import { useInitialParams } from "../_hooks/useInitialParams";
 
 type GameContextType<T, U> = {
   isPlay: T;
@@ -26,12 +26,16 @@ type GameContextType<T, U> = {
   reset: () => void;
 };
 
+const pathLists = gameLists.map(
+  (game, i) => `/games/${i}-${convertStringIntoLink(game.name)}`
+);
+
 const GameContext = createContext<GameContextType<boolean, string> | undefined>(
   undefined
 );
 
 function GameProvider({ children }: { children: React.ReactNode }) {
-  const { pathname } = useInitialParams();
+  const pathname = usePathname(); // Cannot use from useInitialParams hook
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [isPlay, setIsPlay] = useState(false);
   const [characterFound, setCharacterFound] = useState<string[]>([]);
@@ -45,10 +49,6 @@ function GameProvider({ children }: { children: React.ReactNode }) {
   // Reset the game when players click other pages during playing the game
   useEffect(
     function () {
-      const pathLists = gameLists.map(
-        (game, i) => `/games/${i}-${convertStringIntoLink(game.name)}`
-      );
-
       if (!pathLists.includes(pathname)) {
         setIsPlay(false);
         reset();

@@ -1,4 +1,4 @@
-import BoardOperation from "../_features/boards/BoardOperation";
+import BoardOperation from "@/app/_features/boards/BoardOperation";
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (

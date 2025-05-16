@@ -6,7 +6,7 @@ export const metadata = {
   title: "Games",
 };
 
-export default function Home() {
+function Home() {
   return (
     <main className="flex justify-center items-center h-full py-2 sm:py-3 lg:py-4">
       <Container type="square">
@@ -17,3 +17,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default Home;

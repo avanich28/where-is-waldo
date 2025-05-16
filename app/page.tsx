@@ -6,7 +6,7 @@ import LinkButton from "@/app/_components/LinkButton";
 const imageContainerDefaultStyle =
   "relative h-[150px] w-[160px] sm:h-[180px] sm:w-[190px] lg:h-[200px] lg:w-[210px] rounded-full overflow-hidden";
 
-function page() {
+function Page() {
   return (
     <main className="h-full px-[3vw] flex flex-col items-center justify-center tracking-wide sm:tracking-wider">
       <div className={`hidden dark:block ${imageContainerDefaultStyle}`}>
@@ -33,4 +33,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

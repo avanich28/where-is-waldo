@@ -10,9 +10,7 @@ import GameImage from "@/app/_features/games/GameImage";
 import RedirectToGamesPage from "@/app/_features/games/RedirectToGamesPage";
 
 type PageProps = {
-  params: {
-    gameId: string;
-  };
+  params: Promise<{ gameId: string }>;
 };
 
 export async function generateMetadata({ params }: PageProps) {
@@ -53,7 +51,7 @@ async function Page({ params }: PageProps) {
             </div>
           </div>
         </header>
-        <section className="sticky top-0 flex justify-center">
+        <section className="sticky top-0 m-auto">
           <Container addClassName="sm:p-2 gap-3 md:gap-5">
             {characters.map((data) => (
               <CharacterBox

@@ -7,19 +7,15 @@ export const metadata = {
 };
 
 type PageProps = {
-  params: {
-    boardId: string;
-  };
-  searchParams: {
-    filter?: "fastest" | "slowest" | "latest" | "oldest";
-  };
+  params: Promise<{ boardId: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 async function Page({ params, searchParams }: PageProps) {
   const { boardId } = await params;
   const query = await searchParams;
   const data = await getAllRecordsPerGame(boardId);
-  const filter = query?.filter ?? filters[0];
+  const filter = (query?.filter as string) ?? filters[0];
 
   return <BoardLists boardId={boardId} filter={filter} data={data} />;
 }
