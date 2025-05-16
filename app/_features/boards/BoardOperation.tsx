@@ -1,9 +1,13 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import { IoFilter } from "react-icons/io5";
-import { useInitialParams } from "@/app/_hooks/useInitialParams";
 import { filters } from "@/app/_utils/constants";
 import { gameLists } from "@/app/_utils/gameLists";
 import { convertStringIntoLink } from "@/app/_utils/helpers";
@@ -11,9 +15,13 @@ import Select from "@/app/_components/Select";
 
 function BoardOperation() {
   const router = useRouter();
-  const { pathname, params, searchParams } = useInitialParams();
+  const pathname = usePathname();
+  const params = useParams();
+  const searchParams = useSearchParams();
   const [curGameName, setCurGameName] = useState(params.boardId as string);
-  const [curFilter, setCurFilter] = useState(searchParams.filter || filters[0]);
+  const [curFilter, setCurFilter] = useState(
+    searchParams.get("filter") || filters[0]
+  );
   const pictureData = useMemo(
     () =>
       gameLists.map((game, i) => ({
