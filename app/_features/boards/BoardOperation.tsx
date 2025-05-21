@@ -20,7 +20,7 @@ function BoardOperation() {
   const searchParams = useSearchParams();
   const [curGameName, setCurGameName] = useState(params.boardId as string);
   const [curFilter, setCurFilter] = useState(
-    searchParams.get("filter") || filters[0]
+    (searchParams.get("filter") as string) ?? filters[0]
   );
   const pictureData = useMemo(
     () =>
@@ -47,6 +47,7 @@ function BoardOperation() {
       setCurGameName(e.target.value);
 
       const defaultFilter = filters[0];
+      setCurFilter(defaultFilter);
       router.push(
         e.target.value + "?" + createQueryString("filter", defaultFilter)
       );
