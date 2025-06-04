@@ -88,27 +88,20 @@ export async function getAllRecordsPerGame(
   const id = 1 + Number(boardId.split("-")[0]);
 
   try {
-    const data = await prisma.game.findUnique({
+    const data = await prisma.record.findMany({
       where: {
-        id: Number(id),
+        gameId: Number(id),
       },
-      include: {
-        records: {
-          where: {
-            gameId: id,
-          },
-          orderBy: {
-            timeCount: "asc",
-          },
-          select: {
-            id: true,
-            user: {
-              select: { name: true },
-            },
-            timeCount: true,
-            createdAt: true,
-          },
+      orderBy: {
+        timeCount: "asc",
+      },
+      select: {
+        id: true,
+        user: {
+          select: { name: true },
         },
+        timeCount: true,
+        createdAt: true,
       },
     });
 
@@ -117,7 +110,7 @@ export async function getAllRecordsPerGame(
     // Add a dense rank
     let rank = 1;
     let prevTimeCount = 0;
-    const recordsWithRank = data.records.map((obj, i) => {
+    const recordsWithRank = data.map((obj, i) => {
       const { id, user, timeCount, createdAt: date } = obj;
       const { name } = user;
 
