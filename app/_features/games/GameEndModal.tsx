@@ -1,20 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { FaRegFaceLaughWink } from "react-icons/fa6";
 import { useGame } from "@/app/_contexts/GameContext";
-import Button from "@/app/_components/Button";
 import Modal from "@/app/_components/Modal";
+import LinkButton from "@/app/_components/LinkButton";
 
 function GameEndModal() {
-  const router = useRouter();
-  const { isPlay, time, reset } = useGame();
+  const { isPlay, time } = useGame();
   const { minutes, seconds } = time;
-
-  function handleGameEnd() {
-    setTimeout(reset, 1000);
-    router.push("/games");
-  }
 
   return (
     <>
@@ -29,9 +22,9 @@ function GameEndModal() {
           <div className="font-semibold text-xl sm:text-2xl">
             {minutes} : {seconds}
           </div>
-          <Button onClick={handleGameEnd} color="green" addClassName="mb-2">
+          <LinkButton href="/games" color="green" addClassName="mb-2">
             Go Back
-          </Button>
+          </LinkButton>
         </Modal>
       )}
     </>

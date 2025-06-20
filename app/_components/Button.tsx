@@ -1,7 +1,7 @@
 import { type PropsWithChildren } from "react";
 
 type ButtonStyles = "primary";
-type ButtonColors = "primary" | "red" | "green";
+type ButtonColors = "primary" | "red";
 
 const defaultStyles: Record<ButtonStyles, string> = {
   primary:
@@ -12,7 +12,6 @@ const defaultColors: Record<ButtonColors, string> = {
   primary:
     "bg-light-container dark:bg-dark-container hover:bg-hover-primary dark:hover:bg-hover-secondary",
   red: "text-white bg-red-700 hover:bg-red-600",
-  green: "text-white bg-green-700 hover:bg-green-600",
 };
 
 type ButtonProps = PropsWithChildren<{
