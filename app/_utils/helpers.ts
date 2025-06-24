@@ -1,10 +1,7 @@
 import { type Time } from "./types";
 
-export function isActive(
-  curPathname: string,
-  defaultLink: string
-): string | "" {
-  return curPathname === defaultLink ? "active" : "";
+export function isActive(currentSelect: string, value: string): string | "" {
+  return currentSelect === value ? "active" : "";
 }
 
 export function convertStringIntoLink(string: string): string {

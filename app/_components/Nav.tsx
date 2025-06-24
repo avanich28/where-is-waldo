@@ -17,11 +17,11 @@ function Nav({ name }: { name: string | undefined }) {
     >
       {name && (
         <>
-          <Link href="/user/records" className="md:hidden">
+          <Link href="/user" className="md:hidden">
             <PiUserFill />
           </Link>
           <Link
-            href="/user/records"
+            href="/user"
             className="hidden md:inline-flex text-base lg:text-lg uppercase tracking-wider"
           >
             {name.length > 10 ? name.slice(0, 10) + "." : name}

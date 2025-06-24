@@ -7,7 +7,7 @@ const defaultStyles: Record<ContainerStyles, string> = {
     "flex flex-wrap p-1 rounded-md bg-light-container dark:bg-dark-container",
   secondary:
     "flex flex-col px-3 py-2 rounded-md bg-light-container dark:bg-dark-container",
-  square: "grid grid-cols-2 grid-rows-2 gap-3 sm:gap-5 lg:gap-6",
+  square: "grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4 lg:gap-5",
 };
 
 type ContainerProps = PropsWithChildren<{

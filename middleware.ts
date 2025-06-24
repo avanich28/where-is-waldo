@@ -33,16 +33,12 @@ export async function middleware(request: NextRequest) {
   if (session.user && request.nextUrl.pathname === "/")
     return NextResponse.redirect(new URL("/games", request.url));
 
-  if (session.user && request.nextUrl.pathname === "/user")
-    return NextResponse.redirect(new URL("/user/records", request.url));
-
   return NextResponse.next();
 }
 
 export const config = {
   matcher: [
     "/",
-    "/user",
     "/boards",
     "/boards/:path*",
     "/((?!api|_next/static|_next/image|favicon.ico|icon.png|$|signup|login).*)",

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 import { GameProvider } from "@/app/_contexts/GameContext";
 import { ThemeProvider } from "@/app/_contexts/ThemeContext";
+import { UserProvider } from "@/app/_contexts/UserContext";
 import Footer from "@/app/_components/Footer";
 import Header from "@/app/_components/Header";
 
@@ -25,11 +26,13 @@ export default function RootLayout({
         <Toaster position="top-center" />
 
         <ThemeProvider>
-          <GameProvider>
-            <Header />
-            {children}
-            <Footer />
-          </GameProvider>
+          <UserProvider>
+            <GameProvider>
+              <Header />
+              {children}
+              <Footer />
+            </GameProvider>
+          </UserProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -28,9 +28,11 @@
     background-color: var(--color-hover-secondary);
   }
 
-  .active:hover,
+  .active:hover {
+    color: var(--color-text-table-head-light) !important;
+  }
   .dark .active:hover {
-    color: inherit !important;
+    color: var(--color-text-dark) !important;
   }
 
   .primaryTransition {

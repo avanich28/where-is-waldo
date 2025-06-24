@@ -1,24 +1,26 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { isActive } from "@/app/_utils/helpers";
 import Container from "@/app/_components/Container";
-
-const linkDefaultStyle =
-  "uppercase text-center tracking-wider font-semibold sm:font-bold text-light-textHead dark:text-dark-textHead text-xs sm:text-sm lg:text-base [&>*]:border-hidden [&>*]:rounded-md [&>*]:p-1 [&>*]:w-[8rem] [&>*]:sm:w-40 [&>*]:lg:w-[12rem] hover:[&>*]:text-hover-primary dark:hover:[&>*]:text-hover-secondary [&>*]:primaryTransition";
-
-const defaultLinks = ["/user/records", "/user/settings"];
+import { useUser } from "@/app/_contexts/UserContext";
+import { userDefaultSection } from "@/app/_utils/constants";
+import Button from "@/app/_components/Button";
 
 function UserOperation() {
-  const pathname = usePathname();
+  const { curSection, setCurSection } = useUser();
 
   return (
-    <Container addClassName={`gap-1 ${linkDefaultStyle}`}>
-      {defaultLinks.map((link) => (
-        <Link key={link} href={link} className={isActive(pathname, link)}>
-          {link.split("/")[2]}
-        </Link>
+    <Container addClassName={`gap-1`}>
+      {userDefaultSection.map((section) => (
+        <Button
+          key={section}
+          type="secondary"
+          color="secondary"
+          onClick={() => setCurSection(section)}
+          addClassName={isActive(curSection, section)}
+        >
+          {section}
+        </Button>
       ))}
     </Container>
   );

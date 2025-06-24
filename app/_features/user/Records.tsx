@@ -1,19 +1,13 @@
-import { getUserBestRecords } from "@/app/_lib/data-services";
 import { gameLists } from "@/app/_utils/gameLists";
 import { calcMinsAndSecs } from "@/app/_utils/helpers";
+import { type BestRecords } from "@/app/_utils/types";
 import Container from "@/app/_components/Container";
 import ImageDetail from "@/app/_components/ImageDetail";
-
-export const metadata = {
-  title: "Records",
-};
 
 const textDefaultStyle =
   "text-sm sm:text-base lg:text-lg [&>div:nth-child(1)]:font-semibold [&>div:nth-child(1)]:sm:font-bold tracking-wide sm:tracking-wider";
 
-async function Page() {
-  const data = await getUserBestRecords();
-
+function Records({ data }: { data: BestRecords }) {
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4 lg:gap-5 my-auto">
       {data.map((record) => {
@@ -38,4 +32,4 @@ async function Page() {
   );
 }
 
-export default Page;
+export default Records;
