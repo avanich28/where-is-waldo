@@ -6,7 +6,7 @@ import { TbMoonFilled, TbSunFilled } from "react-icons/tb";
 import { useTheme } from "@/app/_contexts/ThemeContext";
 
 const linkDefaultStyle: string =
-  "text-xl sm:text-2xl lg:text-3xl [&>*]:primaryTransition hover:[&>*]:text-hover-secondary hover:[&>*]:dark:text-hover-primary";
+  "text-xl sm:text-2xl lg:text-3xl hover:[&>*]:text-hover-secondary hover:[&>*]:dark:text-hover-primary [&>*]:primaryTransition";
 
 function Nav({ name }: { name: string | undefined }) {
   const { theme, toggleTheme } = useTheme();

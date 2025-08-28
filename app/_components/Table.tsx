@@ -9,7 +9,7 @@ function Table({ children, headers }: TableProps) {
     <section className="relative h-full">
       <div className="absolute w-full h-full border-hidden border-light-container dark:border-dark-container rounded-md overflow-auto scrollbar bg-light-container dark:bg-dark-container">
         <table className="w-full table-auto tracking-wide sm:tracking-wider">
-          <thead className="sticky top-0 bg-light-container dark:bg-dark-container text-sm sm:text-base lg:text-lg h-[30px] sm:h-[40px] lg:h-[50px] uppercase">
+          <thead className="sticky top-0 bg-light-container dark:bg-dark-container text-sm sm:text-base lg:text-lg h-[30px] sm:h-[40px] lg:h-[50px] uppercase primaryTransition">
             <tr className="[&>*]:font-medium text-light-textHead dark:text-dark-textHead">
               {headers.map((header) => (
                 <th key={header}>{header}</th>

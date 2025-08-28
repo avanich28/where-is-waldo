@@ -1,4 +1,4 @@
-import SettingsForm from "@/app/_features/authentication/SettingsForm";
+import SettingsForm from "@/app/_features/user/SettingsForm";
 
 function Settings({ name }: { name: string | undefined }) {
   return (

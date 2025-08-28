@@ -12,7 +12,7 @@ function BoardItem({ record }: BoardItemProp) {
   return (
     <>
       <td>{rank}</td>
-      <td className="capitalize">{name}</td>
+      <td>{name}</td>
       <td>
         {minutes}:{seconds}
       </td>

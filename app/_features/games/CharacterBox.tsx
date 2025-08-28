@@ -16,7 +16,7 @@ function CharacterBox({ src, alt, name }: CharacterBoxProps) {
   return (
     <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-2 items-center">
       <div
-        className={`relative h-[50px] w-[50px] sm:h-[60px] sm:w-[60px] lg:h-[65px] lg:w-[65px] border border-black dark:border-white rounded-md overflow-hidden ${
+        className={`relative h-[50px] w-[50px] sm:h-[60px] sm:w-[60px] lg:h-[65px] lg:w-[65px] border border-black dark:border-white rounded-md overflow-hidden characterBoxTransition ${
           characterFound.includes(name) ? "opacity-25" : "opacity-100"
         }`}
       >

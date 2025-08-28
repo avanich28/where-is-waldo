@@ -38,7 +38,7 @@ function Select({
       id={name}
       value={value}
       onChange={onChange}
-      className={`py-1 bg-light-bg dark:bg-dark-bg border-light-container dark:border-dark-container tracking-wide sm:tracking-wider ${defaultStyles[type]} ${addClassName}`}
+      className={`py-1 bg-light-bg dark:bg-dark-bg border-light-container dark:border-dark-container tracking-wide sm:tracking-wide primaryTransition ${defaultStyles[type]} ${addClassName}`}
     >
       {isLink
         ? (data as LinkOption[]).map((obj) => (

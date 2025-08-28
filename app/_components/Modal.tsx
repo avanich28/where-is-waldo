@@ -6,7 +6,7 @@ function Modal({ children }: { children: React.ReactNode }) {
       <div className="h-full w-full bg-gray-800 dark:bg-black opacity-50"></div>
       <Container
         type="secondary"
-        addClassName="absolute justify-center items-center gap-2 sm:gap-3 tracking-wide sm:tracking-wider"
+        addClassName="absolute justify-center items-center sm:gap-1 lg:gap-2 text-lg sm:text-2xl lg:text-3xl font-semibold tracking-wide sm:tracking-wider sm:px-5 lg:px-6"
       >
         {children}
       </Container>

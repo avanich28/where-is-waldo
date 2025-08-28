@@ -6,7 +6,7 @@ async function Header() {
   const { name } = await getUserData();
 
   return (
-    <header className="flex items-center justify-center pt-[4vh]">
+    <header className="pt-[4vh] flex items-center justify-center gap-1 ">
       <Logo />
       <div className="absolute right-[3vw]">
         <Nav name={name} />

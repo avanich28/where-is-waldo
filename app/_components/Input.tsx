@@ -23,7 +23,7 @@ function Input({
       disabled={isPending}
       minLength={minLength}
       maxLength={maxLength}
-      className="px-2 py-1 bg-light-inTable dark:bg-dark-inTable rounded-md"
+      className="px-2 py-1 bg-light-inTable dark:bg-dark-inTable rounded-md primaryTransition"
       required
     />
   );

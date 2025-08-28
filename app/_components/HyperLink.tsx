@@ -4,7 +4,7 @@ type HyperLinkStyles = "primary";
 
 const defaultStyles: Record<HyperLinkStyles, string> = {
   primary:
-    "primaryTransition hover:text-hover-secondary hover:dark:text-hover-primary",
+    "hover:text-hover-secondary hover:dark:text-hover-primary primaryTransition",
 };
 
 type HyperLinkProps = PropsWithChildren<{

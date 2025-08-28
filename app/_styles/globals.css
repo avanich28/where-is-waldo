@@ -21,6 +21,18 @@
     transition: color 0.3s, background-color 0.3s;
   }
 
+  .primaryTransition {
+    transition: all 0.3s;
+  }
+
+  .boxTransition {
+    transition: all 200ms ease-in-out, color 0.3s;
+  }
+
+  .characterBoxTransition {
+    transition: border 0.3s;
+  }
+
   .active {
     background-color: var(--color-hover-primary);
   }
@@ -33,10 +45,6 @@
   }
   .dark .active:hover {
     color: var(--color-text-table-head-dark) !important;
-  }
-
-  .primaryTransition {
-    transition: all 200ms ease-in-out;
   }
 
   .scrollbar::-webkit-scrollbar,

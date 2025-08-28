@@ -13,7 +13,7 @@ function FormBox({ children, name, action }: FormBoxProps) {
   return (
     <form
       action={action}
-      className={`flex flex-col gap-2 sm:w-[40vw] px-[2vw] py-[4vh] border border-light-container dark:border-dark-container rounded-md capitalize tracking-wide sm:tracking-wider [&>button]:ml-auto ${bottomTextDefaultStyle}`}
+      className={`flex flex-col gap-2 sm:w-[40vw] px-[2vw] py-[4vh] border border-light-container dark:border-dark-container rounded-md capitalize tracking-wide sm:tracking-wider [&>button]:ml-auto primaryTransition ${bottomTextDefaultStyle}`}
     >
       <h2 className="mb-1 uppercase font-semibold sm:font-bold sm:text-lg lg:text-xl">
         {name}

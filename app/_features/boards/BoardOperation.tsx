@@ -74,7 +74,7 @@ function BoardOperation() {
         isLink={true}
         type="secondary"
       />
-      <div className="flex items-center gap-2 md:gap-3 ">
+      <div className="flex items-center gap-2 md:gap-3">
         <span className="text-[1.5em]">
           <IoFilter />
         </span>

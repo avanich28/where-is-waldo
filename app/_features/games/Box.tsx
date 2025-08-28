@@ -36,7 +36,7 @@ function Box({ id, data }: BoxProps) {
   return (
     <button onClick={handleGameStart}>
       <div
-        className={`w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] lg:w-[180px] lg:h-[180px] flex justify-center items-center text-center rounded-md overflow-hidden px-2 lg:px-3 group relative tracking-wider animate-expand primaryTransition [&>*]:primaryTransition ${defaultStyles[position]}`}
+        className={`w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] lg:w-[180px] lg:h-[180px] flex justify-center items-center text-center rounded-md overflow-hidden px-2 lg:px-3 group relative tracking-wider animate-expand boxTransition [&>*]:boxTransition ${defaultStyles[position]}`}
       >
         <ImageBox
           src={image[0]}
