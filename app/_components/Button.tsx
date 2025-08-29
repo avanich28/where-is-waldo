@@ -5,9 +5,9 @@ type ButtonColors = "primary" | "secondary" | "red";
 
 const defaultStyles: Record<ButtonStyles, string> = {
   primary:
-    "px-2 sm:px-3 lg:px-4 py-1 rounded-md active:scale-[0.96] uppercase font-bold tracking-wide sm:tracking-wider text-xs sm:text-sm lg:text-base primaryTransition",
+    "px-2 sm:px-3 lg:px-4 py-1 rounded-md active:scale-[0.96] uppercase font-bold tracking-wide sm:tracking-wider text-xs sm:text-sm lg:text-base secondaryTransition",
   secondary:
-    "uppercase text-center tracking-wider font-semibold sm:font-bold text-xs sm:text-sm lg:text-base rounded-md p-1 w-[8rem] sm:w-40 lg:w-[12rem] primaryTransition",
+    "uppercase text-center tracking-wider font-semibold sm:font-bold text-xs sm:text-sm lg:text-base rounded-md p-1 w-[8rem] sm:w-40 lg:w-[12rem] secondaryTransition",
 };
 
 const defaultColors: Record<ButtonColors, string> = {
